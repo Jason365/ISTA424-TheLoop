@@ -13,16 +13,22 @@ public class TimeKeeper : MonoBehaviour {
     public float bpm;
 
     int beat = 0;
-    bool[] hats = new bool[8];
-    bool[] kicks = new bool[8];
-    bool[] snares = new bool[8];
+    bool[] hats = new bool[16];
+    bool[] kicks = new bool[16];
+    bool[] snares = new bool[16];
 
     // Use this for initialization
     void Start () {
-        float convertedBpm = (60 / bpm);
+        float convertedBpm = ((60/4)/bpm);
+        print(convertedBpm);
 
         InvokeRepeating("GetBeat", convertedBpm, convertedBpm);
 	}
+
+    void Hit ()
+    {
+
+    }
 
     void Update ()
     {
@@ -31,7 +37,7 @@ public class TimeKeeper : MonoBehaviour {
             sound.PlayOneShot(hat);
             if(beat == 0)
             {
-                hats[7] = true;
+                hats[15] = true;
             }
             else
             {
@@ -44,7 +50,7 @@ public class TimeKeeper : MonoBehaviour {
             sound.PlayOneShot(kick);
             if (beat == 0)
             {
-                kicks[7] = true;
+                kicks[15] = true;
             }
             else
             {
@@ -57,7 +63,7 @@ public class TimeKeeper : MonoBehaviour {
             sound.PlayOneShot(snare);
             if (beat == 0)
             {
-                snares[7] = true;
+                snares[15] = true;
             }
             else
             {
@@ -87,12 +93,12 @@ public class TimeKeeper : MonoBehaviour {
         {
             sound.PlayOneShot(highClick);
         }
-        else if (beat%2 == 0)
+        else if (beat%4 == 0)
         {
             sound.PlayOneShot(lowClick);
         }
 
-        if (beat >= 7){
+        if (beat >= 15){
             beat = 0;
         }
         else
