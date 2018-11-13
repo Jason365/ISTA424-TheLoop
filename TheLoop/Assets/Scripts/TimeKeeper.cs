@@ -25,51 +25,58 @@ public class TimeKeeper : MonoBehaviour {
         InvokeRepeating("GetBeat", convertedBpm, convertedBpm);
 	}
 
-    void Hit ()
+    public void HatHit ()
     {
+        sound.PlayOneShot(hat);
+        if (beat == 0)
+        {
+            hats[15] = true;
+        }
+        else
+        {
+            hats[beat - 1] = true;
+        }
+    }
 
+    public void KickHit ()
+    {
+        sound.PlayOneShot(kick);
+        if (beat == 0)
+        {
+            kicks[15] = true;
+        }
+        else
+        {
+            kicks[beat - 1] = true;
+        }
+    }
+
+    public void SnareHit()
+    {
+        sound.PlayOneShot(snare);
+        if (beat == 0)
+        {
+            snares[15] = true;
+        }
+        else
+        {
+            snares[beat - 1] = true;
+        }
     }
 
     void Update ()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            sound.PlayOneShot(hat);
-            if(beat == 0)
-            {
-                hats[15] = true;
-            }
-            else
-            {
-                hats[beat-1] = true;
-            }
-                
+            HatHit();  
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            sound.PlayOneShot(kick);
-            if (beat == 0)
-            {
-                kicks[15] = true;
-            }
-            else
-            {
-                kicks[beat - 1] = true;
-            }
-
+            KickHit();
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            sound.PlayOneShot(snare);
-            if (beat == 0)
-            {
-                snares[15] = true;
-            }
-            else
-            {
-                snares[beat - 1] = true;
-            }
-
+            SnareHit();
         }
     }
 	
