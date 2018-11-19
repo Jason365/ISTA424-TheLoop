@@ -78,6 +78,12 @@ public class TimeKeeper : MonoBehaviour {
         {
             SnareHit();
         }
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        {
+            hats = new bool[16];
+            kicks = new bool[16];
+            snares = new bool[16];
+        }
     }
 	
 	// Update is called once per frame
