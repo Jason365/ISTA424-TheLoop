@@ -16,6 +16,10 @@ public class SnareDrum : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         tk.SnareHit();
+        if (other.tag == "Note")
+        {
+            Destroy(other.gameObject);
+        }
     }
 
 }

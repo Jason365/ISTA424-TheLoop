@@ -16,6 +16,10 @@ public class KickDrum : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         tk.KickHit();
+        if (other.tag == "Note")
+        {
+            Destroy(other.gameObject);
+        }
     }
 
 }

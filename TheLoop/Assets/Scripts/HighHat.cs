@@ -15,6 +15,10 @@ public class HighHat : MonoBehaviour {
     
 	void OnTriggerEnter (Collider other) {
         tk.HatHit();
+        if (other.tag == "Note")
+        {
+            Destroy(other.gameObject);
+        }
 	}
 	
 }
