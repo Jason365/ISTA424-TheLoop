@@ -10,6 +10,10 @@ public class TimeKeeper : MonoBehaviour {
     public AudioClip snare;
     public AudioClip highClick;
     public AudioClip lowClick;
+    public GameObject hatSpawn;
+    public GameObject kickSpawn;
+    public GameObject snareSpawn;
+    public GameObject note;
     public float bpm;
 
     int beat = 0;
@@ -109,6 +113,14 @@ public class TimeKeeper : MonoBehaviour {
         else if (beat%4 == 0)
         {
             sound.PlayOneShot(lowClick);
+        }
+
+        if ((beat - 8) > 0)
+        {
+            if (hats[beat - 7])
+            {
+                Instantiate(note, hatSpawn.transform);
+            }
         }
 
         if (beat >= 15){

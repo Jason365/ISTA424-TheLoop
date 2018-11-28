@@ -527,6 +527,10 @@ MonoBehaviour:
   snare: {fileID: 8300000, guid: 95ad1dd28c2b5da4a967e28d9e8d09b3, type: 3}
   highClick: {fileID: 8300000, guid: 2ec45920c1d0bc44c9de9a0cffe0c7c1, type: 3}
   lowClick: {fileID: 8300000, guid: 9cb5944fedbd68845a7fcfc2c0502adc, type: 3}
+  hatSpawn: {fileID: 498504241}
+  kickSpawn: {fileID: 1449108820}
+  snareSpawn: {fileID: 454491453}
+  note: {fileID: 1133109493270684, guid: 9924ac1da0717304c944e23ad926f2a6, type: 2}
   bpm: 120
 --- !u!4 &594385553
 Transform:
