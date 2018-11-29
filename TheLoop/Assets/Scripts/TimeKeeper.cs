@@ -17,29 +17,21 @@ public class TimeKeeper : MonoBehaviour {
     public float bpm;
 
     int beat = 0;
-    bool[] hats = new bool[16];
-    bool[] kicks = new bool[16];
-    bool[] snares = new bool[16];
+    bool[] hats = new bool[8];
+    bool[] kicks = new bool[8];
+    bool[] snares = new bool[8];
 
     // Use this for initialization
     void Start () {
-        float convertedBpm = ((60/4)/bpm);
-        print(convertedBpm);
+        float convertedBpm = ((60)/bpm);
 
         InvokeRepeating("GetBeat", convertedBpm, convertedBpm);
 	}
 
     public void HatHit ()
     {
-        sound.PlayOneShot(hat);
-        if (beat == 0)
-        {
-            hats[15] = true;
-        }
-        else
-        {
-            hats[beat - 1] = true;
-        }
+        //sound.PlayOneShot(hat);
+        hats[(beat)%8] = true;
     }
 
     public void KickHit ()
@@ -47,7 +39,7 @@ public class TimeKeeper : MonoBehaviour {
         sound.PlayOneShot(kick);
         if (beat == 0)
         {
-            kicks[15] = true;
+            kicks[7] = true;
         }
         else
         {
@@ -60,7 +52,7 @@ public class TimeKeeper : MonoBehaviour {
         sound.PlayOneShot(snare);
         if (beat == 0)
         {
-            snares[15] = true;
+            snares[7] = true;
         }
         else
         {
@@ -84,15 +76,31 @@ public class TimeKeeper : MonoBehaviour {
         }
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
         {
-            hats = new bool[16];
-            kicks = new bool[16];
-            snares = new bool[16];
+            hats = new bool[8];
+            kicks = new bool[8];
+            snares = new bool[8];
         }
     }
 	
 	// Update is called once per frame
 	void GetBeat()
     {
+        if (beat >= 7)
+        {
+            beat = 0;
+        }
+        else
+        {
+            beat += 1;
+        }
+        print(beat);
+
+        StartCoroutine(BeatOffset());
+ 
+    }
+    IEnumerator BeatOffset()
+    {
+        yield return new WaitForSeconds(0.25f);
         if (hats[beat])
         {
             sound.PlayOneShot(hat);
@@ -105,31 +113,19 @@ public class TimeKeeper : MonoBehaviour {
         {
             sound.PlayOneShot(snare);
         }
-        
+
         if (beat == 0)
         {
             sound.PlayOneShot(highClick);
         }
-        else if (beat%4 == 0)
+        else if (beat % 2 == 0)
         {
             sound.PlayOneShot(lowClick);
         }
 
-        if ((beat - 8) > 0)
+        if (hats[(beat + 2) % 8])
         {
-            if (hats[beat - 7])
-            {
-                Instantiate(note, hatSpawn.transform);
-            }
+            Instantiate(note, hatSpawn.transform);
         }
-
-        if (beat >= 15){
-            beat = 0;
-        }
-        else
-        {
-            beat += 1;
-        }
-        
     }
 }
