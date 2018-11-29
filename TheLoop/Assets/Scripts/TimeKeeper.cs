@@ -30,34 +30,20 @@ public class TimeKeeper : MonoBehaviour {
 
     public void HatHit ()
     {
-        //sound.PlayOneShot(hat);
+        sound.PlayOneShot(hat);
         hats[(beat)%8] = true;
     }
 
     public void KickHit ()
     {
         sound.PlayOneShot(kick);
-        if (beat == 0)
-        {
-            kicks[7] = true;
-        }
-        else
-        {
-            kicks[beat - 1] = true;
-        }
+        kicks[(beat) % 8] = true;
     }
 
     public void SnareHit()
     {
         sound.PlayOneShot(snare);
-        if (beat == 0)
-        {
-            snares[7] = true;
-        }
-        else
-        {
-            snares[beat - 1] = true;
-        }
+        snares[(beat) % 8] = true;
     }
 
     void Update ()
@@ -93,7 +79,6 @@ public class TimeKeeper : MonoBehaviour {
         {
             beat += 1;
         }
-        print(beat);
 
         StartCoroutine(BeatOffset());
  
@@ -103,15 +88,15 @@ public class TimeKeeper : MonoBehaviour {
         yield return new WaitForSeconds(0.25f);
         if (hats[beat])
         {
-            sound.PlayOneShot(hat);
+            //sound.PlayOneShot(hat);
         }
         if (kicks[beat])
         {
-            sound.PlayOneShot(kick);
+            //sound.PlayOneShot(kick);
         }
         if (snares[beat])
         {
-            sound.PlayOneShot(snare);
+            //sound.PlayOneShot(snare);
         }
 
         if (beat == 0)
@@ -123,9 +108,17 @@ public class TimeKeeper : MonoBehaviour {
             sound.PlayOneShot(lowClick);
         }
 
-        if (hats[(beat + 2) % 8])
+        if (hats[(beat + 1) % 8])
         {
             Instantiate(note, hatSpawn.transform);
+        }
+        if (kicks[(beat + 1) % 8])
+        {
+            Instantiate(note, kickSpawn.transform);
+        }
+        if (snares[(beat + 1) % 8])
+        {
+            Instantiate(note, snareSpawn.transform);
         }
     }
 }
