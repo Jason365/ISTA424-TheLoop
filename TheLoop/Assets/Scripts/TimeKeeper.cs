@@ -86,19 +86,7 @@ public class TimeKeeper : MonoBehaviour {
     IEnumerator BeatOffset()
     {
         yield return new WaitForSeconds(0.25f);
-        if (hats[beat])
-        {
-            //sound.PlayOneShot(hat);
-        }
-        if (kicks[beat])
-        {
-            //sound.PlayOneShot(kick);
-        }
-        if (snares[beat])
-        {
-            //sound.PlayOneShot(snare);
-        }
-
+        
         if (beat == 0)
         {
             sound.PlayOneShot(highClick);
@@ -111,14 +99,38 @@ public class TimeKeeper : MonoBehaviour {
         if (hats[(beat + 1) % 8])
         {
             Instantiate(note, hatSpawn.transform);
+            if(beat == 0)
+            {
+                hats[7] = false;
+            }
+            else
+            {
+                hats[beat - 1] = false;
+            }
         }
         if (kicks[(beat + 1) % 8])
         {
             Instantiate(note, kickSpawn.transform);
+            if (beat == 0)
+            {
+                kicks[7] = false;
+            }
+            else
+            {
+                kicks[beat - 1] = false;
+            }
         }
         if (snares[(beat + 1) % 8])
         {
             Instantiate(note, snareSpawn.transform);
+            if (beat == 0)
+            {
+                snares[7] = false;
+            }
+            else
+            {
+                snares[beat - 1] = false;
+            }
         }
     }
 }
