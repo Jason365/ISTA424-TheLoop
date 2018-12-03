@@ -17,6 +17,7 @@ public class TimeKeeper : MonoBehaviour {
     public float bpm;
 
     int beat = 0;
+    bool click = true;
     bool[] hats = new bool[8];
     bool[] kicks = new bool[8];
     bool[] snares = new bool[8];
@@ -60,11 +61,19 @@ public class TimeKeeper : MonoBehaviour {
         {
             SnareHit();
         }
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetKeyDown(KeyCode.F))
         {
-            hats = new bool[8];
-            kicks = new bool[8];
-            snares = new bool[8];
+            //hats = new bool[8];
+            //kicks = new bool[8];
+            //snares = new bool[8];
+            if (click)
+            {
+                click = false;
+            }
+            else
+            {
+                click = true;
+            }
         }
     }
 	
@@ -87,11 +96,11 @@ public class TimeKeeper : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.25f);
         
-        if (beat == 0)
+        if (beat == 0 && click)
         {
             sound.PlayOneShot(highClick);
         }
-        else if (beat % 2 == 0)
+        else if (beat % 2 == 0 && click)
         {
             sound.PlayOneShot(lowClick);
         }
