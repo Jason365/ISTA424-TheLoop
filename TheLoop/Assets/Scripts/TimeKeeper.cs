@@ -99,38 +99,17 @@ public class TimeKeeper : MonoBehaviour {
         if (hats[(beat + 1) % 8])
         {
             Instantiate(note, hatSpawn.transform);
-            if(beat == 0)
-            {
-                hats[7] = false;
-            }
-            else
-            {
-                hats[beat - 1] = false;
-            }
+            hats[(beat + 1) % 8] = false;
         }
         if (kicks[(beat + 1) % 8])
         {
             Instantiate(note, kickSpawn.transform);
-            if (beat == 0)
-            {
-                kicks[7] = false;
-            }
-            else
-            {
-                kicks[beat - 1] = false;
-            }
+            kicks[(beat + 1) % 8] = false;
         }
         if (snares[(beat + 1) % 8])
         {
             Instantiate(note, snareSpawn.transform);
-            if (beat == 0)
-            {
-                snares[7] = false;
-            }
-            else
-            {
-                snares[beat - 1] = false;
-            }
+            snares[(beat + 1) % 8] = false;
         }
     }
 }
