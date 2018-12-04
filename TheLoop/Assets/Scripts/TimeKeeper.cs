@@ -15,9 +15,11 @@ public class TimeKeeper : MonoBehaviour {
     public GameObject snareSpawn;
     public GameObject note;
     public float bpm;
+    public GameObject tutorialObj;
 
     int beat = 0;
     bool click = true;
+    bool tut = true;
     bool[] hats = new bool[8];
     bool[] kicks = new bool[8];
     bool[] snares = new bool[8];
@@ -33,18 +35,38 @@ public class TimeKeeper : MonoBehaviour {
     {
         sound.PlayOneShot(hat);
         hats[(beat)%8] = true;
+        if (tut)
+        {
+            endTut();
+            tut = false;
+        }
     }
 
     public void KickHit ()
     {
         sound.PlayOneShot(kick);
         kicks[(beat) % 8] = true;
+        if (tut)
+        {
+            endTut();
+            tut = false;
+        }
     }
 
     public void SnareHit()
     {
         sound.PlayOneShot(snare);
         snares[(beat) % 8] = true;
+        if (tut)
+        {
+            endTut();
+            tut = false;
+        }
+    }
+
+    public void endTut()
+    {
+        Destroy(tutorialObj);
     }
 
     void Update ()
