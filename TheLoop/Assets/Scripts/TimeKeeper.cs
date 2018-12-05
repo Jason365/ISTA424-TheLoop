@@ -10,9 +10,19 @@ public class TimeKeeper : MonoBehaviour {
     public AudioClip snare;
     public AudioClip highClick;
     public AudioClip lowClick;
+    public AudioClip c;
+    public AudioClip e;
+    public AudioClip g;
+    public AudioClip b;
+    public AudioClip d;
     public GameObject hatSpawn;
     public GameObject kickSpawn;
     public GameObject snareSpawn;
+    public GameObject cSpawn;
+    public GameObject eSpawn;
+    public GameObject gSpawn;
+    public GameObject bSpawn;
+    public GameObject dSpawn;
     public GameObject note;
     public float bpm;
     public GameObject tutorialObj;
@@ -23,6 +33,11 @@ public class TimeKeeper : MonoBehaviour {
     bool[] hats = new bool[8];
     bool[] kicks = new bool[8];
     bool[] snares = new bool[8];
+    bool[] cs = new bool[8];
+    bool[] es = new bool[8];
+    bool[] gs = new bool[8];
+    bool[] bs = new bool[8];
+    bool[] ds = new bool[8];
 
     // Use this for initialization
     void Start () {
@@ -37,7 +52,7 @@ public class TimeKeeper : MonoBehaviour {
         hats[(beat)%8] = true;
         if (tut)
         {
-            endTut();
+            EndTut();
             tut = false;
         }
     }
@@ -48,7 +63,7 @@ public class TimeKeeper : MonoBehaviour {
         kicks[(beat) % 8] = true;
         if (tut)
         {
-            endTut();
+            EndTut();
             tut = false;
         }
     }
@@ -59,12 +74,37 @@ public class TimeKeeper : MonoBehaviour {
         snares[(beat) % 8] = true;
         if (tut)
         {
-            endTut();
+            EndTut();
             tut = false;
         }
     }
+    public void CHit()
+    {
+        sound.PlayOneShot(c);
+        cs[(beat) % 8] = true;
+    }
+    public void EHit()
+    {
+        sound.PlayOneShot(e);
+        es[(beat) % 8] = true;
+    }
+    public void GHit()
+    {
+        sound.PlayOneShot(g);
+        gs[(beat) % 8] = true;
+    }
+    public void BHit()
+    {
+        sound.PlayOneShot(b);
+        bs[(beat) % 8] = true;
+    }
+    public void DHit()
+    {
+        sound.PlayOneShot(d);
+        ds[(beat) % 8] = true;
+    }
 
-    public void endTut()
+    public void EndTut()
     {
         Destroy(tutorialObj);
     }
@@ -141,6 +181,31 @@ public class TimeKeeper : MonoBehaviour {
         {
             Instantiate(note, snareSpawn.transform);
             snares[(beat + 1) % 8] = false;
+        }
+        if (cs[(beat + 1) % 8])
+        {
+            Instantiate(note, cSpawn.transform);
+            cs[(beat + 1) % 8] = false;
+        }
+        if (es[(beat + 1) % 8])
+        {
+            Instantiate(note, eSpawn.transform);
+            es[(beat + 1) % 8] = false;
+        }
+        if (gs[(beat + 1) % 8])
+        {
+            Instantiate(note, gSpawn.transform);
+            gs[(beat + 1) % 8] = false;
+        }
+        if (bs[(beat + 1) % 8])
+        {
+            Instantiate(note, bSpawn.transform);
+            bs[(beat + 1) % 8] = false;
+        }
+        if (ds[(beat + 1) % 8])
+        {
+            Instantiate(note, dSpawn.transform);
+            ds[(beat + 1) % 8] = false;
         }
     }
 }
